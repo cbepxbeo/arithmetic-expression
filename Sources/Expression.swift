@@ -19,4 +19,10 @@
  
  */
 
-public struct Expression {}
+public struct Expression {
+    public let left: Int
+    public let right: Int
+    public let `operator`: Operator
+    public let difficulty: Difficulty
+    public let classifier: Classifier
+}
