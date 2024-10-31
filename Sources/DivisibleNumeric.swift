@@ -12,17 +12,14 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Expression.swift
+ |  File: DivisibleNumeric.swift
  |  Created by: Egor Boyko
- |  Date: October 30, 2024
+ |  Date: October 31, 2024
  |---------------------------------------------------------------------------------------
  
  */
 
-public struct Expression<Element: ExpressionElement> {
-    public let left: Element
-    public let right: Element
-    public let `operator`: Operator
-    public let difficulty: Difficulty
-    public let classifier: Classifier
+///Числовой тип с операцией деления.
+public protocol DivisibleNumeric {
+    static func /(lhs: Self, rhs: Self) -> Self
 }

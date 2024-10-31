@@ -12,17 +12,19 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Expression.swift
+ |  File: Expression+Protocol+Hashable.swift
  |  Created by: Egor Boyko
  |  Date: October 30, 2024
  |---------------------------------------------------------------------------------------
  
  */
 
-public struct Expression<Element: ExpressionElement> {
-    public let left: Element
-    public let right: Element
-    public let `operator`: Operator
-    public let difficulty: Difficulty
-    public let classifier: Classifier
+extension Expression: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        let max = max(self.left, self.right)
+        let min = min(self.left, self.right)
+        hasher.combine(max)
+        hasher.combine(min)
+        hasher.combine(self.operator)
+    }
 }

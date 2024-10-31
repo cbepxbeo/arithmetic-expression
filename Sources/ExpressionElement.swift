@@ -12,17 +12,26 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Expression.swift
+ |  File: ExpressionElement.swift
  |  Created by: Egor Boyko
- |  Date: October 30, 2024
+ |  Date: October 31, 2024
  |---------------------------------------------------------------------------------------
  
  */
 
-public struct Expression<Element: ExpressionElement> {
-    public let left: Element
-    public let right: Element
-    public let `operator`: Operator
-    public let difficulty: Difficulty
-    public let classifier: Classifier
+public protocol ExpressionElement:
+    DivisibleNumeric,
+    Hashable,
+    SignedNumeric,
+    AdditiveArithmetic,
+    Comparable {
+    init<T: BinaryInteger>(_ sourse: T)
 }
+
+extension Int8: ExpressionElement {}
+extension Int16: ExpressionElement {}
+extension Int32: ExpressionElement {}
+extension Int64: ExpressionElement {}
+extension Int: ExpressionElement {}
+extension Double: ExpressionElement {}
+extension Float: ExpressionElement {}

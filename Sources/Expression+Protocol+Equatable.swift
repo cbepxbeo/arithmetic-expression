@@ -12,17 +12,20 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Expression.swift
+ |  File: Expression+Protocol+Equatable.swift
  |  Created by: Egor Boyko
  |  Date: October 30, 2024
  |---------------------------------------------------------------------------------------
  
  */
 
-public struct Expression<Element: ExpressionElement> {
-    public let left: Element
-    public let right: Element
-    public let `operator`: Operator
-    public let difficulty: Difficulty
-    public let classifier: Classifier
+extension Expression: Equatable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        let lhsMax = max(lhs.left, lhs.right)
+        let rhsMax = max(rhs.left, rhs.right)
+        let lhsMin = min(lhs.left, lhs.right)
+        let rhsMin = min(rhs.left, rhs.right)
+        
+        return lhsMax == rhsMax && lhsMin == rhsMin && lhs.operator == rhs.operator
+    }
 }
