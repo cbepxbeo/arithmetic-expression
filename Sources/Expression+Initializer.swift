@@ -24,14 +24,14 @@ extension Expression {
         self.classifier = Self.getClassifier(left, right)
         self.left = left
         self.right = right
-        self.difficulty = Self.getDifficulty(left, right)
+        self.difficulty = Self.getDifficulty(left, right, self.classifier)
         self.operator = oper
     }
     
     static func getClassifier(_ left: Int, _ right: Int) -> Classifier {
         .single
     }
-    static func getDifficulty(_ left: Int, _ right: Int) -> Difficulty {
+    static func getDifficulty(_ left: Int, _ right: Int, _ classifier: Classifier) -> Difficulty {
         .easy
     }
 }
