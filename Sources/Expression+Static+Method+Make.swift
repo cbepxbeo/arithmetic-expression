@@ -12,7 +12,7 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Expression+Protocol+Equatable.swift
+ |  File: Expression+Static+Method+Make.swift
  |  Created by: Egor Boyko
  |  Date: October 30, 2024
  |---------------------------------------------------------------------------------------
@@ -23,12 +23,11 @@ extension Expression {
     public static func make(classifier: Classifier, operator oper: Operator) -> [Expression] {
         switch classifier {
         case .single:
-            return self.single(operator: oper)
+            return Self.single(operator: oper)
         }
     }
     
-    
-    func single(operator oper: Operator) -> [Expression] {
+    static func single(operator oper: Operator) -> [Expression] {
         var result: [Expression] = []
         for i in 1...9{
             for j in (1...9).reversed() {
