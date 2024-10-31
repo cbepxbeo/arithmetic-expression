@@ -20,18 +20,95 @@
  */
 
 extension Expression {
-    public init(left: Int, right: Int, operator oper: Operator){
-        self.classifier = Self.getClassifier(left, right)
+    public init(left: Int, right: Int, operator oper: Operator) throws {
+        self.classifier = try Self.getClassifier(left, right)
         self.left = left
         self.right = right
-        self.difficulty = Self.getDifficulty(left, right, self.classifier)
         self.operator = oper
+        self.difficulty = Self.getDifficulty(left, right, self.classifier, oper)
     }
-    
-    static func getClassifier(_ left: Int, _ right: Int) -> Classifier {
-        .single
+}
+
+
+extension Expression {
+    static func getClassifier(_ left: Int, _ right: Int) throws -> Classifier {
+        switch (left, right) {
+        case (0...10, 0...10): return .single
+        default:
+            throw Error.invalidExpression
+        }
     }
-    static func getDifficulty(_ left: Int, _ right: Int, _ classifier: Classifier) -> Difficulty {
-        .easy
+    static func getDifficulty(
+        _ left: Int,
+        _ right: Int,
+        _ classifier: Classifier,
+        _ oper: Operator) -> Difficulty {
+        switch classifier {
+        case .single:
+            Self.getSingleDifficulty(left, right, oper)
+        }
+    }
+}
+
+
+extension Expression {
+    static func getSingleDifficulty(_ left: Int, _ right: Int, _ oper: Operator) -> Difficulty {
+        switch oper {
+        case .plus:
+            return plus(left, right)
+        }
+        func plus(_ x: Int, _ y: Int) -> Difficulty {
+            if x == 1 || y == 1 {
+                return .easy
+            }
+            
+            if x == 2 || y == 2 {
+                return .easy
+            }
+            
+            if x == 9 || y == 9 {
+                return .medium
+            }
+            
+            if (x + y) % 10 == 0{
+                return .easy
+            }
+            
+            if x < 4 && y < 4 {
+                return .easy
+            }
+            
+            if x == y {
+                return .medium
+            }
+            
+            let max = max(x, y)
+            let min = min(x, y)
+            
+            
+            if max == 8 && min == 5 {
+                return .extraHard
+            }
+            if max == 8 && min == 6 {
+                return .extraHard
+            }
+            if max == 8 && min == 7 {
+                return .extraHard
+            }
+            
+            
+            if max == 7 && min == 6 {
+                return .hard
+            }
+            
+            if max == 7 && min == 5 {
+                return .hard
+            }
+            if max == 7 && min == 4 {
+                return .hard
+            }
+            
+            return .medium
+        }
     }
 }
