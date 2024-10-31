@@ -12,14 +12,26 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: DivisibleNumeric.swift
+ |  File: ExpressionElement.swift
  |  Created by: Egor Boyko
  |  Date: October 31, 2024
  |---------------------------------------------------------------------------------------
  
  */
 
-///Числовой тип с операцией деления.
-public protocol DivisibleNumeric {
-    static func /(lhs: Self, rhs: Self) -> Self
+public protocol ExpressionElement:
+    DivisibleNumeric,
+    Hashable,
+    SignedNumeric,
+    AdditiveArithmetic,
+    Comparable {
+    init<T: BinaryInteger>(_ sourse: T)
 }
+
+extension Int8: ExpressionElement {}
+extension Int16: ExpressionElement {}
+extension Int32: ExpressionElement {}
+extension Int64: ExpressionElement {}
+extension Int: ExpressionElement {}
+extension Double: ExpressionElement {}
+extension Float: ExpressionElement {}

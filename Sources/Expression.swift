@@ -19,9 +19,9 @@
  
  */
 
-public struct Expression {
-    public let left: Int
-    public let right: Int
+public struct Expression<Element: ExpressionElement> {
+    public let left: Element
+    public let right: Element
     public let `operator`: Operator
     public let difficulty: Difficulty
     public let classifier: Classifier

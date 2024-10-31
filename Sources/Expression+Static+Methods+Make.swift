@@ -19,7 +19,7 @@
  
  */
 
-extension Expression {
+extension Expression where Element: BinaryInteger {
     ///Получение массива примеров заданной классификации, с заданным оператором
     /// - Parameter operator: Оператор, который используется в примерах
     /// - Parameter classifier:  Классификатор примера (однозначиные числа, двузначные и т.д.)
@@ -38,7 +38,7 @@ extension Expression {
         var result: [Expression] = []
         for i in 1...9{
             for j in (1...9).reversed() {
-                try! result.append(Expression(left: i, right: j, operator: `operator`))
+                try! result.append(Expression(left: Element(i), right: Element(j), operator: `operator`))
             }
         }
         return result

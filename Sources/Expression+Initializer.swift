@@ -20,7 +20,14 @@
  */
 
 extension Expression {
-    public init(left: Int, right: Int, operator oper: Operator) throws {
+    public init(left: Element, right: Element, operator oper: Operator) throws where Element : BinaryInteger {
+        self.classifier = try Self.getClassifier(left, right)
+        self.left = left
+        self.right = right
+        self.operator = oper
+        self.difficulty = Self.getDifficulty(left, right, self.classifier, oper)
+    }
+    public init(left: Element, right: Element, operator oper: Operator) throws where Element : BinaryFloatingPoint {
         self.classifier = try Self.getClassifier(left, right)
         self.left = left
         self.right = right
@@ -31,7 +38,7 @@ extension Expression {
 
 
 extension Expression {
-    static func getClassifier(_ left: Int, _ right: Int) throws -> Classifier {
+    static func getClassifier(_ left: Element, _ right: Element) throws -> Classifier {
         switch (left, right) {
         case (0...10, 0...10): return .single
         default:
@@ -39,25 +46,35 @@ extension Expression {
         }
     }
     static func getDifficulty(
-        _ left: Int,
-        _ right: Int,
+        _ left: Element,
+        _ right: Element,
         _ classifier: Classifier,
-        _ oper: Operator) -> Difficulty {
-        switch classifier {
-        case .single:
-            Self.getSingleDifficulty(left, right, oper)
+        _ oper: Operator) -> Difficulty where Element : BinaryInteger {
+            switch classifier {
+            case .single:
+                Self.getSingleDifficulty(left, right, oper)
+            }
         }
-    }
+    static func getDifficulty(
+        _ left: Element,
+        _ right: Element,
+        _ classifier: Classifier,
+        _ oper: Operator) -> Difficulty where Element : BinaryFloatingPoint {
+            switch classifier {
+            case .single:
+                Self.getSingleDifficulty(left, right, oper)
+            }
+        }
 }
 
 
 extension Expression {
-    static func getSingleDifficulty(_ left: Int, _ right: Int, _ oper: Operator) -> Difficulty {
+    static func getSingleDifficulty(_ left: Element, _ right: Element, _ oper: Operator) -> Difficulty where Element : BinaryInteger {
         switch oper {
         case .plus:
             return plus(left, right)
         }
-        func plus(_ x: Int, _ y: Int) -> Difficulty {
+        func plus(_ x: Element, _ y: Element) -> Difficulty {
             if x == 1 || y == 1 {
                 return .easy
             }
@@ -110,5 +127,10 @@ extension Expression {
             
             return .medium
         }
+    }
+    static func getSingleDifficulty(_ left: Element, _ right: Element, _ oper: Operator) -> Difficulty where Element : BinaryFloatingPoint {
+        let x = Int(left)
+        let y = Int(right)
+        return Expression<Int>.getSingleDifficulty(x, y, oper)
     }
 }
