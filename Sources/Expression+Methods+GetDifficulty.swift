@@ -12,27 +12,32 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Expression+Initializer.swift
+ |  File: Expression+Methods+GetDifficulty.swift
  |  Created by: Egor Boyko
- |  Date: October 30, 2024
+ |  Date: November 2, 2024
  |---------------------------------------------------------------------------------------
  
  */
 
 extension Expression {
-    public init(left: Element, right: Element, operator oper: Operator) throws where Element : BinaryInteger {
-        self.classifier = try Self.getClassifier(left, right)
-        self.left = left
-        self.right = right
-        self.operator = oper
-        self.difficulty = Self.getDifficulty(left, right, self.classifier, oper)
-    }
-    public init(left: Element, right: Element, operator oper: Operator) throws where Element : BinaryFloatingPoint {
-        self.classifier = try Self.getClassifier(left, right)
-        self.left = left
-        self.right = right
-        self.operator = oper
-        self.difficulty = Self.getDifficulty(left, right, self.classifier, oper)
-    }
+    static func getDifficulty(
+        _ left: Element,
+        _ right: Element,
+        _ classifier: Classifier,
+        _ oper: Operator) -> Difficulty where Element : BinaryInteger {
+            switch classifier {
+            case .single:
+                Self.getSingleDifficulty(left, right, oper)
+            }
+        }
+    static func getDifficulty(
+        _ left: Element,
+        _ right: Element,
+        _ classifier: Classifier,
+        _ oper: Operator) -> Difficulty where Element : BinaryFloatingPoint {
+            switch classifier {
+            case .single:
+                Self.getSingleDifficulty(left, right, oper)
+            }
+        }
 }
-

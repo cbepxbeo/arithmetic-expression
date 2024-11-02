@@ -21,4 +21,5 @@
 
 public enum Classifier {
     case single
+    case singleWithTwoDigit
 }
