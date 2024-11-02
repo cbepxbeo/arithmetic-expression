@@ -20,14 +20,7 @@
  */
 
 extension Expression {
-    public init(left: Element, right: Element, operator oper: Operator) throws where Element : BinaryInteger {
-        self.classifier = try Self.getClassifier(left, right)
-        self.left = left
-        self.right = right
-        self.operator = oper
-        self.difficulty = Self.getDifficulty(left, right, self.classifier, oper)
-    }
-    public init(left: Element, right: Element, operator oper: Operator) throws where Element : BinaryFloatingPoint {
+    public init(left: Element, right: Element, operator oper: Operator) throws {
         self.classifier = try Self.getClassifier(left, right)
         self.left = left
         self.right = right

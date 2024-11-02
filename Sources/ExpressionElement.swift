@@ -24,7 +24,8 @@ public protocol ExpressionElement:
     Hashable,
     SignedNumeric,
     AdditiveArithmetic,
-    Comparable {
+    Comparable,
+    BinaryInteger {
     init<T: BinaryInteger>(_ sourse: T)
 }
 
@@ -33,5 +34,3 @@ extension Int16: ExpressionElement {}
 extension Int32: ExpressionElement {}
 extension Int64: ExpressionElement {}
 extension Int: ExpressionElement {}
-extension Double: ExpressionElement {}
-extension Float: ExpressionElement {}

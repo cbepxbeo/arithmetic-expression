@@ -19,8 +19,14 @@
  
  */
 
+
+//MARK: SINGLE
 extension Expression {
-    static func getSingleDifficulty(_ left: Element, _ right: Element, _ oper: Operator) -> Difficulty where Element : BinaryInteger {
+    static func getSingleDifficulty(
+        _ left: Element,
+        _ right: Element,
+        _ oper: Operator
+    ) -> Difficulty {
         switch oper {
         case .plus:
             return plus(left, right)
@@ -79,10 +85,15 @@ extension Expression {
             return .medium
         }
     }
-    static func getSingleDifficulty(_ left: Element, _ right: Element, _ oper: Operator) -> Difficulty where Element : BinaryFloatingPoint {
-        let x = Int(left)
-        let y = Int(right)
-        return Expression<Int>.getSingleDifficulty(x, y, oper)
-    }
 }
 
+//MARK: SingleWithTwoDigit
+extension Expression {
+    static func getSingleWithTwoDigitDifficulty(
+        _ left: Element,
+        _ right: Element,
+        _ oper: Operator
+    ) -> Difficulty {
+        return .medium
+    }
+}

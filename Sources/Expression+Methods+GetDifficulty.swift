@@ -24,20 +24,12 @@ extension Expression {
         _ left: Element,
         _ right: Element,
         _ classifier: Classifier,
-        _ oper: Operator) -> Difficulty where Element : BinaryInteger {
+        _ oper: Operator) -> Difficulty{
             switch classifier {
             case .single:
                 Self.getSingleDifficulty(left, right, oper)
-            }
-        }
-    static func getDifficulty(
-        _ left: Element,
-        _ right: Element,
-        _ classifier: Classifier,
-        _ oper: Operator) -> Difficulty where Element : BinaryFloatingPoint {
-            switch classifier {
-            case .single:
-                Self.getSingleDifficulty(left, right, oper)
+            case .singleWithTwoDigit: 
+                Self.getSingleWithTwoDigitDifficulty(left, right, oper)
             }
         }
 }
