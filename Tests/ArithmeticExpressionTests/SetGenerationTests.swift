@@ -27,20 +27,40 @@ typealias Expression = ArithmeticExpression.Expression<Int>
 final class SetGenerationTests: XCTestCase {
     func testSinglePlus() throws {
         let expressions = Expression.make(classifier: .single, operator: .plus)
-        var bool = true
         //Коллекция не должна содержать значения менее 1-го и более 9-ти
         expressions.forEach { element in
             if element.left < 1 || element.right < 1 || element.left > 9 || element.right > 9 {
-                bool = false
+                XCTFail()
             }
         }
-        XCTAssert(bool)
+        
+        //2 варианта, 9 элементов, от 1-го до 9-ти, 9 во второй степени
+        XCTAssert(expressions.count == 9 * 9)
+        
+        //Множество, чтобы исключить дубликаты
         let set = Set<Expression>(expressions)
-        //2 вариант, 8 элементов от 1-го до 9-ти во второй степени
-        XCTAssert(expressions.count != 8 * 8)
-        //Множество не должно содержать дубликатов (перестановка слагаемых)
-        XCTAssert(expressions.count != 8 * 8 / 2)
+        //Колbчество = арифметическая прогрессия от 1 до 9 с шагом 1
+        XCTAssert(set.count == ((9 + 1) / 2) * 9)
         
     }
-    func testSingleWithTwoDigit() throws {}
+    
+    func testSingleWithTwoDigit() throws {
+        let expressions = Expression.make(classifier: .singleWithTwoDigit, operator: .plus)
+        //Коллекция не должна содержать два значения менее 1-го и более 9-ти,
+        //два значения более 10, значения более 99 и менее 1
+        expressions.forEach { element in
+            let max = max(element.left, element.right)
+            let min = min(element.left, element.right)
+            if max < 9 || max > 99 || min < 1 || min > 10 {
+                XCTFail()
+            }
+        }
+        //Варианты 1...9 справа и 10...99 слева, 10...99 справа и 1...9 слева
+        XCTAssert(expressions.count == (9 * 90) * 2)
+        //Множество, чтобы исключить дубликаты
+        //Так как левая и правая часть не имеют коллизий, достаточно просто всех вариантов
+        //с одной стороны
+        let set = Set<Expression>(expressions)
+        XCTAssert(set.count == 9 * 90)
+    }
 }
