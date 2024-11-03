@@ -94,6 +94,35 @@ extension Expression {
         _ right: Element,
         _ oper: Operator
     ) -> Difficulty {
-        return .medium
+        switch oper {
+        case .plus:
+            return plus(left, right)
+        }
+        func plus(_ x: Element, _ y: Element) -> Difficulty {
+            
+            let max = max(x, y)
+            let min = min(x, y)
+            
+
+            if max % 10 == 0 {
+                return .easy
+            }
+            
+            if min + max % 10 == 0 {
+                return .easy
+            }
+            
+            if min < 4 {
+                return .easy
+            }
+            
+            if max - min < 10 {
+                return .easy
+            }
+            
+            
+            
+            return .medium
+        }
     }
 }
