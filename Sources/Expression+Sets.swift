@@ -41,6 +41,13 @@ extension Expression {
     /// - Parameter operator: Оператор, который используется в примерах
     /// - Returns: Возвращает все возможные однозначные + двухзначные примеры
     static func singleWithTwoDigit(operator: Operator) -> [Expression] {
-        []
+        var result: [Expression] = []
+        for i in 1...9{
+            for j in (10...99).reversed() {
+                try! result.append(Expression(left: Element(i), right: Element(j), operator: `operator`))
+                try! result.append(Expression(left: Element(j), right: Element(i), operator: `operator`))
+            }
+        }
+        return result
     }
 }
