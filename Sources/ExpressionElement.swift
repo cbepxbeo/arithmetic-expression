@@ -26,7 +26,7 @@ public protocol ExpressionElement:
     AdditiveArithmetic,
     Comparable,
     BinaryInteger {
-    init<T: BinaryInteger>(_ sourse: T)
+    init<T: ExpressionElement>(_ sourse: T)
 }
 
 extension Int8: ExpressionElement {}

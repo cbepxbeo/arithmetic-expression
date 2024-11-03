@@ -12,9 +12,9 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Expression+Initializer.swift
+ |  File: Typealiases.swift
  |  Created by: Egor Boyko
- |  Date: October 30, 2024
+ |  Date: November 2, 2024
  |---------------------------------------------------------------------------------------
  
  */
@@ -22,18 +22,6 @@
 import ArithmeticFoundation
 import ArithmeticDifficulty
 
-extension Expression {
-    public init(left: Element, right: Element, operator: Operator) throws {
-        self.classifier = try Classifier(left: Int(left), right: Int(right))
-        self.left = left
-        self.right = right
-        self.operator = `operator`
-        self.difficulty = Difficulty(
-            left: Int(left),
-            right: Int(right),
-            operator: `operator`,
-            classifier: self.classifier
-        )
-    }
-}
-
+public typealias Classifier = ArithmeticFoundation.Classifier
+public typealias Operator = ArithmeticFoundation.Operator
+public typealias Error = ArithmeticFoundation.Error
