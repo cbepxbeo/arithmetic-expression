@@ -22,7 +22,9 @@
 extension Expression {
     static func getClassifier(_ left: Element, _ right: Element) throws -> Classifier {
         switch (left, right) {
-        case (0...10, 0...10): return .single
+        case (1...9, 1...9): return .single
+        case (1...9, 10...99): return .singleWithTwoDigit
+        case (10...99, 1...9): return .singleWithTwoDigit
         default:
             throw Error.invalidExpression
         }
