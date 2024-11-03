@@ -10,16 +10,40 @@ let package = Package(
             name: "ArithmeticExpression",
             targets: ["ArithmeticExpression"]),
     ],
+    dependencies: [
+        .package(
+            url: "https://github.com/cbepxbeo/arithmetic-foundation.git",
+            from: "1.0.2"
+        ),
+        .package(
+            url: "https://github.com/cbepxbeo/arithmetic-difficulty.git",
+            from: "0.0.1"
+        ),
+        .package(
+            url: "https://github.com/cbepxbeo/arithmetic-expression-generator.git",
+            from: "0.0.1"
+        ),
+        
+    ],
     targets: [
         .target(
             name: "ArithmeticExpression",
-            dependencies: [],
+            dependencies: [
+                .product(
+                    name: "ArithmeticFoundation",
+                    package: "arithmetic-foundation"
+                ),
+                .product(
+                    name: "ArithmeticDifficulty",
+                    package: "arithmetic-difficulty"
+                ),
+                .product(
+                    name: "ArithmeticExpressionGenerator",
+                    package: "arithmetic-expression-generator"
+                ),
+            ],
             path: "Sources"
-        ),
-        .testTarget(
-            name: "ArithmeticExpressionTests",
-            dependencies: ["ArithmeticExpression"]
-         ),
+        )
     ],
     swiftLanguageVersions: [ .version("5.9") ]
 )

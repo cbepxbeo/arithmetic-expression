@@ -19,7 +19,9 @@
  
  */
 
-public struct Expression<Element: ExpressionElement> {
+import ArithmeticFoundation
+
+public struct Expression<Element: Calculated>: ArithmeticFoundation.Expression  {
     public let left: Element
     public let right: Element
     public let `operator`: Operator

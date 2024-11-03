@@ -19,33 +19,17 @@
  
  */
 
-extension Expression where Element: BinaryInteger {
+import ArithmeticFoundation
+import ArithmeticExpressionGenerator
+
+extension Expression {
     ///Получение массива примеров заданной классификации, с заданным оператором
     /// - Parameter operator: Оператор, который используется в примерах
     /// - Parameter classifier:  Классификатор примера (однозначиные числа, двузначные и т.д.)
     /// - Returns: Возвращает все возможные примеры исходя из заданных параметров
     public static func make(classifier: Classifier, operator: Operator) -> [Expression] {
-        switch classifier {
-        case .single:
-            return Self.single(operator: `operator`)
-        }
+        Generator.generate(classifier: classifier, operator: `operator`)
     }
-    
-    ///Получение масива примеров из однозначных чисел с указанным оператором
-    /// - Parameter operator: Оператор, который используется в примерах
-    /// - Returns: Возвращает все возможные однозначные примеры
-    static func single(operator: Operator) -> [Expression] {
-        var result: [Expression] = []
-        for i in 1...9{
-            for j in (1...9).reversed() {
-                try! result.append(Expression(left: Element(i), right: Element(j), operator: `operator`))
-            }
-        }
-        return result
-    }
-}
-
-extension Expression {
     ///Получение множества случайных примеров исходя из указанной желаемой сложности.
     /// - Parameter items: Массив примеров, из которого будет формироваться множество
     /// - Parameter extraHard: Желаемое кол-во примеров максимальной сложности
