@@ -13,15 +13,11 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/cbepxbeo/arithmetic-foundation.git",
-            from: "1.0.2"
-        ),
-        .package(
-            url: "https://github.com/cbepxbeo/arithmetic-difficulty.git",
-            from: "0.0.1"
+            from: "1.0.3"
         ),
         .package(
             url: "https://github.com/cbepxbeo/arithmetic-expression-generator.git",
-            from: "0.0.1"
+            from: "0.0.3"
         ),
         
     ],
@@ -32,10 +28,6 @@ let package = Package(
                 .product(
                     name: "ArithmeticFoundation",
                     package: "arithmetic-foundation"
-                ),
-                .product(
-                    name: "ArithmeticDifficulty",
-                    package: "arithmetic-difficulty"
                 ),
                 .product(
                     name: "ArithmeticExpressionGenerator",
