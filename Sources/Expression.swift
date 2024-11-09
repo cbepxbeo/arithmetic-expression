@@ -25,6 +25,4 @@ public struct Expression<Element: Calculated>: ArithmeticFoundation.Expression  
     public let left: Element
     public let right: Element
     public let `operator`: Operator
-    public let difficulty: Difficulty
-    public let classifier: Classifier
 }

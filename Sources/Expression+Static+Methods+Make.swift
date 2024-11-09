@@ -23,13 +23,6 @@ import ArithmeticFoundation
 import ArithmeticExpressionGenerator
 
 extension Expression {
-    ///Получение массива примеров заданной классификации, с заданным оператором
-    /// - Parameter operator: Оператор, который используется в примерах
-    /// - Parameter classifier:  Классификатор примера (однозначиные числа, двузначные и т.д.)
-    /// - Returns: Возвращает все возможные примеры исходя из заданных параметров
-    public static func make(classifier: Classifier, operator: Operator) -> [Expression] {
-        Generator.generate(classifier: classifier, operator: `operator`)
-    }
     ///Получение множества случайных примеров исходя из указанной желаемой сложности.
     /// - Parameter items: Массив примеров, из которого будет формироваться множество
     /// - Parameter extraHard: Желаемое кол-во примеров максимальной сложности
@@ -45,48 +38,9 @@ extension Expression {
     ///         масимальное возможно кол-во примеров(3).
     public static func make(
         items: [Expression],
-        extraHard: UInt? = nil,
-        hard: UInt? = nil,
-        medium: UInt? = nil,
-        easy: UInt? = nil) -> Set<Expression> {
-
-            var dic: [Difficulty: [Expression]] = [
-                .easy: [],
-                .medium: [],
-                .hard: [],
-                .extraHard: []
-            ]
-            var result: Set<Expression> = []
-
-            items.forEach {
-                dic[$0.difficulty]?.append($0)
-            }
-            
-            if let easy, let items = dic[.easy] {
-                assembly(items: items, necessary: easy, input: &result)
-            }
-            if let medium, let items = dic[.medium] {
-                assembly(items: items, necessary: medium, input: &result)
-            }
-            if let hard, let items = dic[.hard] {
-                assembly(items: items, necessary: hard, input: &result)
-            }
-            
-            if let extraHard, let items = dic[.extraHard] {
-                assembly(items: items, necessary: extraHard, input: &result)
-            }
-            
-            func assembly(items: [Expression], necessary: UInt, input: inout Set<Expression>){
-                let startCount = input.count
-                let maxPossibleQuantity = Set<Expression>(items).count
-                let required = min(Int(necessary), maxPossibleQuantity)
-                while input.count < startCount + required {
-                    if let random = items.randomElement() {
-                        input.insert(random)
-                    }
-                }
-            }
-            
-            return result
+        classifier: ArithmeticFoundation.Classifier,
+        operator: ArithmeticFoundation.Operator,
+        mode: ArithmeticFoundation.Mode) -> Set<Expression> {
+            []
     }
 }

@@ -20,20 +20,12 @@
  */
 
 import ArithmeticFoundation
-import ArithmeticDifficulty
 
 extension Expression {
     public init(left: Element, right: Element, operator: Operator) throws {
-        self.classifier = try Classifier(left: Int(left), right: Int(right))
         self.left = left
         self.right = right
         self.operator = `operator`
-        self.difficulty = Difficulty(
-            left: Int(left),
-            right: Int(right),
-            operator: `operator`,
-            classifier: self.classifier
-        )
     }
 }
 
