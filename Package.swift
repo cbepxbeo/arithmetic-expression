@@ -18,8 +18,7 @@ let package = Package(
         .package(
             url: "https://github.com/cbepxbeo/arithmetic-expression-generator.git",
             from: "0.0.3"
-        ),
-        
+        )
     ],
     targets: [
         .target(
@@ -32,7 +31,7 @@ let package = Package(
                 .product(
                     name: "ArithmeticExpressionGenerator",
                     package: "arithmetic-expression-generator"
-                ),
+                )
             ],
             path: "Sources"
         )
