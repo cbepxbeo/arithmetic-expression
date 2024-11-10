@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "ArithmeticExpression",
-    platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
+    platforms: [.iOS(.v15)],
     products: [
         .library(
             name: "ArithmeticExpression",
@@ -13,17 +13,12 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/cbepxbeo/arithmetic-foundation.git",
-            from: "1.0.2"
-        ),
-        .package(
-            url: "https://github.com/cbepxbeo/arithmetic-difficulty.git",
-            from: "0.0.1"
+            from: "1.0.3"
         ),
         .package(
             url: "https://github.com/cbepxbeo/arithmetic-expression-generator.git",
-            from: "0.0.1"
-        ),
-        
+            from: "0.0.3"
+        )
     ],
     targets: [
         .target(
@@ -34,13 +29,9 @@ let package = Package(
                     package: "arithmetic-foundation"
                 ),
                 .product(
-                    name: "ArithmeticDifficulty",
-                    package: "arithmetic-difficulty"
-                ),
-                .product(
                     name: "ArithmeticExpressionGenerator",
                     package: "arithmetic-expression-generator"
-                ),
+                )
             ],
             path: "Sources"
         )
