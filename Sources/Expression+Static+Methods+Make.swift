@@ -23,24 +23,55 @@ import ArithmeticFoundation
 import ArithmeticExpressionGenerator
 
 extension Expression {
-    ///Получение множества случайных примеров исходя из указанной желаемой сложности.
-    /// - Parameter items: Массив примеров, из которого будет формироваться множество
-    /// - Parameter extraHard: Желаемое кол-во примеров максимальной сложности
-    /// - Parameter hard: Желаемое кол-во примеров повышенной сложности
-    /// - Parameter medium: Желаемое кол-во примеров обычной сложности
-    /// - Parameter easy: Желаемое кол-во примеров обычной сложности
-    /// - Returns: Возвращает множество примеров. Если не переданны параметры желаемого кол-ва или желаемые
-    ///            примеры отсутствуют, будет возвращено пустое множество.
-    /// - Note: Нет гарантии, что количество возвращаемых примеров совпадет с запросом т.к. при указании желаемого
-    ///         резултата, возможен вариант, что примеров будет меньше или их не содержится вообще. В таком случае,
-    ///         множество будет содержать все возможные примеры. Например, передавая на вход полный массив
-    ///         примеров с однозначным классификатором, оператором плюс и параметром extraHard = 50, мы получим
-    ///         масимальное возможно кол-во примеров(3).
+    ///Получение множества примеров исходя из режима.
+    /// - Parameter classifier: Классификатор примеров
+    /// - Parameter operator: Оператор примеров
+    /// - Parameter mode: Режим генерации примеров
+    /// - Returns: Возвращает множество примеров. .
     public static func make(
-        items: [Expression],
         classifier: ArithmeticFoundation.Classifier,
         operator: ArithmeticFoundation.Operator,
         mode: ArithmeticFoundation.Mode) -> Set<Expression> {
-            []
+            switch mode {
+            case .random:
+                Self.makeRandom(classifier: classifier, operator: `operator`)
+            case .selectively:
+                []
+            case .nBack:
+                []
+            }
     }
+    
+    
+    static func makeRandom(
+        classifier: ArithmeticFoundation.Classifier,
+        operator: ArithmeticFoundation.Operator) -> Set<Expression> {
+            func assembly(difficulty: Difficulty, required: Int, input: inout Set<Expression>){
+                let startCount = input.count
+                while input.count < startCount + required {
+                    let random = Generator.random(
+                        difficulty: difficulty,
+                        classifier: classifier,
+                        operator: `operator`
+                    )
+                    input.insert(
+                        Expression(
+                            left: Element(random.0),
+                            right: Element(random.1),
+                            operator: `operator`
+                        )
+                    )
+                }
+            }
+            var output: Set<Expression> = []
+            
+            assembly(difficulty: .extraHard, required: 2, input: &output)
+            assembly(difficulty: .hard, required: 3, input: &output)
+            assembly(difficulty: .medium, required: 3, input: &output)
+            assembly(difficulty: .easy, required: 2, input: &output)
+            
+            return output
+    }
+    
+    
 }
