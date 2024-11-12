@@ -19,17 +19,22 @@ extension Expression {
     /// - Parameter operator: Оператор примеров
     /// - Parameter mode: Режим генерации примеров
     /// - Returns: Возвращает множество примеров. .
-    public static func make(
+    public static func make<T: Configuration>(
         classifier: ArithmeticFoundation.Classifier,
         operator: ArithmeticFoundation.Operator,
-        mode: ArithmeticFoundation.Mode) -> Set<Expression> {
+        mode: ArithmeticFoundation.Mode,
+        configuration: T) -> Set<Expression> {
             switch mode {
             case .random:
-                Self.makeRandom(classifier: classifier, operator: `operator`)
+                if let configuration = configuration as? (any RandomConfiguration) {
+                    Self.makeRandom(configuration: configuration, classifier: classifier, operator: `operator`)
+                } else {
+                    []
+                }
             case .selectively:
                 []
             case .nBack:
                 []
             }
-    }
+        }
 }

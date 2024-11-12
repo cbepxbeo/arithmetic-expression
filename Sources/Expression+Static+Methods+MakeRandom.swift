@@ -15,6 +15,7 @@ import ArithmeticExpressionGenerator
 
 extension Expression {
     static func makeRandom(
+        configuration: RandomConfiguration,
         classifier: ArithmeticFoundation.Classifier,
         operator: ArithmeticFoundation.Operator) -> Set<Expression> {
             func assembly(difficulty: Difficulty, required: Int, input: inout Set<Expression>){
@@ -36,10 +37,10 @@ extension Expression {
             }
             var output: Set<Expression> = []
             
-            assembly(difficulty: .extraHard, required: 2, input: &output)
-            assembly(difficulty: .hard, required: 3, input: &output)
-            assembly(difficulty: .medium, required: 3, input: &output)
-            assembly(difficulty: .easy, required: 2, input: &output)
+            assembly(difficulty: .extraHard, required: Int(configuration.extraHard), input: &output)
+            assembly(difficulty: .hard, required: Int(configuration.hard), input: &output)
+            assembly(difficulty: .medium, required: Int(configuration.medium), input: &output)
+            assembly(difficulty: .easy, required: Int(configuration.easy), input: &output)
             
             return output
     }
