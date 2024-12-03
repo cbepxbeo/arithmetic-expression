@@ -13,11 +13,11 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/cbepxbeo/arithmetic-foundation.git",
-            from: "1.0.3"
+            from: "1.0.0"
         ),
         .package(
             url: "https://github.com/cbepxbeo/arithmetic-expression-generator.git",
-            from: "0.0.3"
+            from: "1.0.0"
         )
     ],
     targets: [
